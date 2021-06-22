@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import CarsContext from './CarsContext';
 
 class Provider extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       cars: {
         red: false,
@@ -19,7 +19,6 @@ class Provider extends Component {
   moveCar(car, side) {
     this.setState({
       cars: {
-        ...this.state.cars,
         [car]: side,
       },
     });
