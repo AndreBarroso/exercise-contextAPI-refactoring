@@ -1,46 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import carContext from "./carContext";
 
-class Provider extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      cars: {
-        red: false,
-        blue: false,
-        yellow: false,
-      },
-        signal: { color: 'red' },
-    };
-    this.moveCar = this.moveCar.bind(this);
-    this.changeSignal = this.changeSignal.bind(this);
+function Provider ({children}) {
+
+
+  const [ cars, setCars] = useState({red: false, blue: false, yellow: false});
+  const [ signal, setSignal] = useState({color: 'red'});
+
+
+  function moveCar(car, side) {
+    setCars({[car]: side});
   }
 
-  moveCar(car, side) {
-    this.setState({
-      cars: {
-        [car]: side,
-      }
-    })
+  function changeSignal(color) {
+    setSignal({color: color});
   }
-
-  changeSignal(color) {
-    this.setState({
-      signal: { color: color},
-    })
-  }
-  render() {
-    const { children } = this.props;
     const context = {
-      ...this.state, moveCar: this.moveCar, changeSignal: this.changeSignal,
+      cars, signal , moveCar,  changeSignal: changeSignal,
     }
+  
     return(
       <carContext.Provider value={context}>
         {children}
       </carContext.Provider>
     );
-  }
 }
+
 
 export default Provider;
